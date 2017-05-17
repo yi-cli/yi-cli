@@ -1,0 +1,34 @@
+{
+  "name": "yi-cli",
+  "version": "0.0.1",
+  "description": "A simple CLI for scaffolding projects.",
+  "preferGlobal": true,
+  "bin": {
+    "yi": "bin/yi",
+    "yi-init": "bin/yi-init"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yi-cli/yi-cli.git"
+  },
+  "keywords": [
+    "yi",
+    "cli",
+    "es6"
+  ],
+  "author": "yuyi",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.9.0",
+    "download-git-repo": "^1.0.0",
+    "ora": "^1.2.0",
+    "rimraf": "^2.6.1"
+  }
+}
