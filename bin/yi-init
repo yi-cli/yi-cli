@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+var path = require('path')
+var exists = require('fs').existsSync
+var ora = require('ora')
+var chalk = require('chalk')
+var rm = require('rimraf').sync
+var program = require('commander')
+var inquirer = require('inquirer')
+var download = require('download-git-repo')
+
+/**
+ * Usage.
+ */
+program
+  .version('0.0.1')
+  .usage('[project-name]')
+  .option('-c, --clone', 'use git clone')
+
+
+/**
+ * --Help.
+ */
+program.on('--help', function () {
+  console.log('  Examples:')
+  console.log()
+  console.log(chalk.green('    # create a new project with an official template'))
+  console.log(chalk.cyan('    $ yi init vue my-project'))
+  console.log()
+  console.log(chalk.green('    # create a new project straight from a github template'))
+  console.log(chalk.cyan('    $ yi init username/repo my-project'))
+  console.log()
+})
+
+
+/**
+ * Help.
+ */
+
+function help () {
+  program.parse(process.argv)
+  if (program.args.length < 1) return program.help()
+}
+help()
+
+/**
+ * Settings.
+ */
+var template = program.args[0]
+var rawName = program.args[1]
+var to = path.resolve(rawName || '.')
+var clone = program.clone || false
+var inPlace = !rawName || rawName === '.'
+console.log(inPlace ? path.relative('../', process.cwd()) : rawName)
+process.on('exit', function () {
+  // console.log()
+})
+
+//检测文件是否创建
+if(exists(to)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inPlace
+      ? 'Generate project in current directory?'
+      : 'Target directory exists. Continue?',
+    name: 'ok'
+  }], function (answers) {
+    if (answers.ok) {
+      run()
+    }
+  })
+} else {
+  run()
+}
+
+
+
+function run () {
+  console.log(12312312)
+}
+
+function downloadAndGenerate (template) {
+
+}
+
