@@ -1,6 +1,61 @@
 #!/usr/bin/env node
-require('commander')
-  .version(require('../package').version)
-  .usage('<command> [options]')
-  .command('init', 'generate a new project from a template')
-  .parse(process.argv)
+
+const program = require('commander')
+const figlet = require('figlet')
+const chalk = require('chalk')
+const inquirer = require('inquirer')
+
+
+
+program
+  .version('0.1.0')
+  .usage('<template-name> [project-name]')
+  .option('-c, --clone', 'use git clone')
+
+/**
+* Help.
+*/
+program.on('--help', function () {
+    console.log('  自定义的例子:')
+    console.log('')
+    console.log('    输出命令  wcj -d')
+    console.log('    输出命令  wcj -l python')
+    console.log('')
+})
+function help () {
+  /**
+  * console figlet
+  */
+  figlet('yi-cli', {
+      font: 'Small',  //Small
+      horizontalLayout: 'universal smushing',
+      verticalLayout: 'default'
+    }, function(err, data) {
+      if (err) {
+          console.log('Something went wrong...')
+          console.dir(err)
+          return
+      }
+      console.log(chalk.magenta(data))
+      program.parse(process.argv)
+      if (program.args.length < 1) return program.help()
+  })
+}
+help()
+
+/**
+ * select pectect
+ */
+// inquirer.prompt([{
+//   type: 'confirm',
+//   message: 'Generate project in current directory?',
+//   name: 'ok'
+// }], function (answers) {
+//   console.log(answers)
+// })
+
+// require('commander')
+//   .version(require('../package').version)
+//   .usage('<command> [options]')
+//   .command('init', 'generate a new project from a template')
+//   .parse(process.argv)
