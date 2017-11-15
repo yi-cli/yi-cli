@@ -2,7 +2,7 @@
 
 A simple CLI for scaffolding projects.
 
-### Installation [Website ✈️](https://yi-cli.github.io/yi-cli/)
+### Installation  ➡ [Document ✈](https://yi-cli.github.io/yi-cli/)
 
 Prerequisites: `node`、`npm`、`git`
 
