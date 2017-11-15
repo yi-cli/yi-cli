@@ -1,61 +1,130 @@
 #!/usr/bin/env node
 
-const program = require('commander')
-const figlet = require('figlet')
+const path = require('path')
+const exists = require('fs').existsSync
+const ora = require('ora')
 const chalk = require('chalk')
+const figlet = require('figlet')
+const rm = require('rimraf').sync
+const program = require('commander')
 const inquirer = require('inquirer')
+const download = require('download-git-repo')
+const checkVersion = require('../lib/check-version')
+const generate = require('../lib/generate') //生成模版
+const home = require('user-home')
 
-
-
+let version = process.env.VERSION || require('../package.json').version
+/**
+ * Usage.
+ */
 program
-  .version('0.1.0')
-  .usage('<template-name> [project-name]')
-  .option('-c, --clone', 'use git clone')
+  .version(version)
+  .usage('<template-name> <project-name>')
+  .option('-V, --verbose', 'A value that can be increased')
 
 /**
-* Help.
-*/
+ * --Help.
+ */
 program.on('--help', function () {
-    console.log('  自定义的例子:')
-    console.log('')
-    console.log('    输出命令  wcj -d')
-    console.log('    输出命令  wcj -l python')
-    console.log('')
+  console.log('  Examples:')
+  console.log()
+  console.log(chalk.green('    # create a new project with an official template'))
+  console.log(chalk.cyan('    $ yi init vue-simple project-name'))
+  console.log()
+  console.log(chalk.green('    # create a new project straight from a github template'))
+  console.log(chalk.cyan('    $ yi init username/repo project-name'))
+  console.log()
 })
+
+/**
+ * Help.
+ */
 function help () {
-  /**
-  * console figlet
-  */
-  figlet('yi-cli', {
-      font: 'Small',  //Small
+  program.parse(process.argv)
+  if (program.args.length < 1) {
+    /**
+    * console figlet
+    */
+    let data = figlet.textSync('yi-cli', {
+      font: 'Small',
       horizontalLayout: 'universal smushing',
       verticalLayout: 'default'
-    }, function(err, data) {
-      if (err) {
-          console.log('Something went wrong...')
-          console.dir(err)
-          return
-      }
-      console.log(chalk.magenta(data))
-      program.parse(process.argv)
-      if (program.args.length < 1) return program.help()
-  })
+    })
+    console.log(chalk.magenta(data))
+    return program.help()
+  }
 }
 help()
 
 /**
- * select pectect
+ * Settings.
  */
-// inquirer.prompt([{
-//   type: 'confirm',
-//   message: 'Generate project in current directory?',
-//   name: 'ok'
-// }], function (answers) {
-//   console.log(answers)
-// })
+let template = program.args[0]
+const hasSlash = template.indexOf('/') > -1 // 判断第三方模板
+const rawName = program.args[1]
+const to = path.resolve(rawName || '.')
+const clone = program.clone || false
+const inPlace = !rawName || rawName === '.'
+const name = inPlace ? path.relative('../', process.cwd()) : rawName
+const tmp = path.join(home, '.vue-templates', template.replace(/\//g, '-'))
 
-// require('commander')
-//   .version(require('../package').version)
-//   .usage('<command> [options]')
-//   .command('init', 'generate a new project from a template')
-//   .parse(process.argv)
+process.on('exit', function () {
+  console.log(chalk.red('---done---'))
+})
+
+//检测文件是否创建
+if(exists(to)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inPlace
+      ? 'Generate project in current directory?' //当前目录生成
+      : 'Target directory exists. Continue?',    //目标文件存在
+    name: 'ok'
+  }]).then(answers => {
+    if (answers.ok) {
+      run()
+    }
+   })
+} else {
+  run()
+}
+
+
+/**
+ * Check, download and generate the project.
+ */
+
+function run () {
+  checkVersion(() => {
+    if(!hasSlash) {
+      const officialTemplate = 'yi-cli/' + template
+      downloadAndGenerate(officialTemplate)
+    } else { //使用第三方模版
+      downloadAndGenerate(template)
+    }
+  })
+}
+
+/**
+ * Download a generate from a template repo.
+ *
+ * @param {String} template
+ */
+
+function downloadAndGenerate (template) {
+  const spinner = ora('downloading template')
+  spinner.start()
+  // Remove if local template exists
+  // if (exists(tmp)) rm(tmp)
+  console.log(tmp)
+  download(template, tmp, { clone: false }, err => {
+    spinner.stop()
+    if (err) console.log(`Failed to download repo ${template} : ${err.message.trim()}`)
+    generate(name, tmp, to, err => {
+      if (err) console.log(err)
+      console.log(tmp)
+    })
+  })
+
+}
+
