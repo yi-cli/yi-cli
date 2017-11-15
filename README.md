@@ -1,37 +1,60 @@
-## Welcome to GitHub Pages
+## yi-cli
 
-You can use the [editor on GitHub](https://github.com/yi-cli/yi-cli/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+A simple CLI for scaffolding projects.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Installation [Website ✈️](https://yi-cli.github.io/yi-cli/)
 
-### Markdown
+Prerequisites: `node`、`npm`、`git`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```js
+$ npm install -g yi-cli
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### appliance
 
-### Jekyll Themes
+```js
+$ yi <template-name> <project-name>
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yi-cli/yi-cli/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+example:
 
-### Support or Contact
+```js
+$ yi vue-simple project-test
+```
+The above command pull the template from yi-cli/vue-simple, prompts for some information, and generates the project at ./project-test/.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### My Templates
+
+I work in peacetime some of the templates are often used, These include `vue`、 `react` multi page and single page and so on. you can check project templates [yi-templates](https://github.com/yi-cli)
+
+Current available templates include:
+
+- [vue-simple](https://github.com/yi-cli/vue-simple) - A Vue Single page program
+
+- [vue-multiple](https://github.com/yi-cli/vue-multiple) - A Vue Msultiple page program
+
+- [react-simple](https://github.com/yi-cli/react-simple) - A React Single program
+
+- [react-multiple](https://github.com/yi-cli/react-multiple) - A React Msultiple page program
+
+
+
+
+### Vue Templates
+
+You can use yi-cli generate vue official templates. you can check all official project templates [vuejs-templates organization](https://github.com/vuejs-templates) you will run `yi <template-name> <project-name>`. For Example `yi vuejs-templates/webpack project-name`
+
+Current available templates include:
+
+- [vuejs-templates/webpack](https://github.com/vuejs-templates/webpack) - full-featured-webpack
+
+- [vuejs-templates/webpack-simple](https://github.com/vuejs-templates/webpack-simple) - simple-webpack
+
+- [vuejs-templates/browserify](https://github.com/vuejs-templates/browserify) - full-featured-browserify
+
+- [vuejs-templates/pwa](https://github.com/vuejs-templates/pwa) - PWA template
+
+- [vuejs-templates/simple](https://github.com/vuejs-templates/simple) - simplest
+
+### License
+[MIT](https://github.com/yi-cli/yi-cli/blob/master/LICENSE)
