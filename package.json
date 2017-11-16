@@ -10,9 +10,14 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run test",
+    "test": "npm run lint",
+    "precommit": "lint-staged",
+    "lint": "eslint --fix ./lib/**/*.js",
     "postinstall": "node ./lib/doctor",
     "postupdate": "node ./lib/doctor"
+  },
+  "lint-staged": {
+    "lib/**/*.js": ["eslint --fix", "git add"]
   },
   "repository": {
     "type": "git",
@@ -47,5 +52,9 @@
     "semver": "^5.4.1",
     "user-home": "^2.0.0",
     "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.2",
+    "eslint-config-yi": "^0.0.4"
   }
 }
