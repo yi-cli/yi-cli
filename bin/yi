@@ -12,6 +12,7 @@ const download = require('download-git-repo')
 const checkVersion = require('../lib/check-version')
 const generate = require('../lib/generate') //生成模版
 const home = require('user-home')
+const symbols = require('node-symbols')
 
 let version = process.env.VERSION || require('../package.json').version
 /**
@@ -69,7 +70,7 @@ const name = inPlace ? path.relative('../', process.cwd()) : rawName
 const tmp = path.join(home, '.vue-templates', template.replace(/\//g, '-'))
 
 process.on('exit', function () {
-  console.log(chalk.red('---done---'))
+  console.log(`${symbols('smiley', 'green')} ${chalk.magenta('done~')}` )
 })
 
 //检测文件是否创建
