@@ -31,11 +31,7 @@ Current available templates include:
 
 - [vue-simple](https://github.com/yi-cli/vue-simple) - A Vue Single page program
 
-- [vue-multiple](https://github.com/yi-cli/vue-multiple) - A Vue Msultiple page program
-
 - [react-simple](https://github.com/yi-cli/react-simple) - A React Single program
-
-- [react-multiple](https://github.com/yi-cli/react-multiple) - A React Msultiple page program
 
 
 
