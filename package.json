@@ -1,11 +1,11 @@
 {
   "name": "yi-cli",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A simple CLI for scaffolding projects.",
   "preferGlobal": true,
   "bin": {
     "yi": "bin/yi",
-    "yi-list": "bin/vue-list"
+    "yi-list": "bin/yi-list"
   },
   "main": "lib/index.js",
   "scripts": {

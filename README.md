@@ -25,7 +25,7 @@ The above command pull the template from yi-cli/vue-simple, prompts for some inf
 
 ### My Templates
 
-It's all my work in peacetime some of the templates are often used, These include *vue*、 *react* multi page and single page and so on. you can check project templates [yi-templates-organization](https://github.com/yi-cli)
+It's all my work in peacetime some of the templates are often used, These include *vue*、 *react* multi page and single page and so on. you can check project templates [yi-templates-organization](https://github.com/yi-cli). For Example `yi vue-simple test`
 
 Current available templates include:
 
